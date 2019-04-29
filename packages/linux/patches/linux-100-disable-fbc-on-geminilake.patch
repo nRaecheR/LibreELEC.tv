@@ -1,0 +1,35 @@
+From: Daniel Drake <drake@xxxxxxxxxxxx>
+
+On many (all?) the Gemini Lake systems we work with, there is frequent
+momentary graphical corruption at the top of the screen, and it seems
+that disabling framebuffer compression can avoid this.
+
+The ticket was reported 6 months ago and has already affected a
+multitude of users, without any real progress being made. So, lets
+disable framebuffer compression on GeminiLake until a solution is found.
+
+Buglink: https://bugs.freedesktop.org/show_bug.cgi?id=108085
+Signed-off-by: Daniel Drake <drake@xxxxxxxxxxxx>
+Signed-off-by: Jian-Hong Pan <jian-hong@xxxxxxxxxxxx>
+---
+ drivers/gpu/drm/i915/intel_fbc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/intel_fbc.c b/drivers/gpu/drm/i915/intel_fbc.c
+index 656e684e7c9a..fc018f3f53a1 100644
+--- a/drivers/gpu/drm/i915/intel_fbc.c
++++ b/drivers/gpu/drm/i915/intel_fbc.c
+@@ -1278,6 +1278,10 @@ static int intel_sanitize_fbc_option(struct drm_i915_private *dev_priv)
+ 	if (!HAS_FBC(dev_priv))
+ 		return 0;
+ 
++	/* https://bugs.freedesktop.org/show_bug.cgi?id=108085 */
++	if (IS_GEMINILAKE(dev_priv))
++		return 0;
++
+ 	if (IS_BROADWELL(dev_priv) || INTEL_GEN(dev_priv) >= 9)
+ 		return 1;
+ 
+-- 
+2.21.0
+
