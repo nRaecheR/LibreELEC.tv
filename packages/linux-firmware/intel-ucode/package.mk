@@ -10,4 +10,3 @@ PKG_SITE="https://downloadcenter.intel.com/search?keyword=linux+microcode"
 PKG_URL="https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files/archive/microcode-${PKG_VERSION}.tar.gz"
 PKG_LONGDESC="intel-ucode: Intel CPU microcodes"
 PKG_TOOLCHAIN="manual"
-
