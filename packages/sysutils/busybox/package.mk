@@ -181,11 +181,9 @@ post_install() {
   add_user nobody x 65534 65534 "Nobody" "/" "/bin/sh"
   add_group nogroup 65534
 
-  enable_service debug-shell.service
   enable_service shell.service
   enable_service show-version.service
   enable_service var.mount
-  enable_service var-log-debug.service
   enable_service fs-resize.service
   listcontains "${FIRMWARE}" "rpi-eeprom" && enable_service rpi-flash-firmware.service
 
